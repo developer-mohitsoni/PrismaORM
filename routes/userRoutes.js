@@ -5,10 +5,12 @@ import {
   fetchUsers,
   showUser,
   deleteUser,
+  onlyFetchUser,
 } from "../Controller/UserController.js";
 
 const router = Router();
 
+router.get("/fetch", onlyFetchUser);
 router.get("/", fetchUsers);
 router.get("/:id", showUser);
 router.post("/", createUser);
