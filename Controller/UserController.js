@@ -2,11 +2,15 @@ import prisma from "../DB/db.config.js";
 
 //* To get all User data
 export const fetchUsers = async (req, res) => {
-
   //* Now this below include shows userData along with Post
   const users = await prisma.user.findMany({
     include: {
-      Post: true
+      Post: {
+        select: {
+          title: true,
+          comment_count: true,
+        },
+      },
     },
   });
 
@@ -84,7 +88,7 @@ export const updateUser = async (req, res) => {
 
 //* Delete The User
 
-export const deleteUser = async (req,res) => {
+export const deleteUser = async (req, res) => {
   const userId = req.params.id;
 
   await prisma.user.deleteMany({
