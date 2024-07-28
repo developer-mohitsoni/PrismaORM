@@ -27,13 +27,53 @@ export const fetchPosts = async (req, res) => {
       id: "desc",
     },
     where: {
-      // comment_count: {
-      //   gt: 0,
-      // },
+      /*
+      comment_count: {
+        gt: 0,
+      },
+      */
+
+      /*
       title: {
         // startsWith: "Next",
         // endsWith: "Tutorial",
         equals: "Prisma Blog",
+      },
+      */
+
+      /* (Iss case mai ek bhi condition true hone par data show karega)
+      OR:[
+        {
+          title:{
+            startsWith: "Nextjs"
+          }
+        },
+        {
+          title:{
+            endsWith: "Blog"
+          }
+        }
+      ]
+        */
+
+      /* (Dono condition true honi chaiye)
+      AND: [
+        {
+          title: {
+            startsWith: "Prisma",
+          },
+        },
+        {
+          title: {
+            endsWith: "Blog",
+          },
+        },
+      ],
+      */
+      NOT: {
+        title: {
+          endsWith: "Blog",
+        },
       },
     },
   });
