@@ -14,6 +14,10 @@ export const fetchPosts = async (req, res) => {
         },
       },
     },
+    orderBy: {
+      // id: "asc",
+      id: "desc",
+    },
   });
 
   return res.status(200).json({
