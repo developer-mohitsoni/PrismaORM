@@ -1,6 +1,6 @@
 import prisma from "../DB/db.config.js";
 
-//* To get all User data
+//* To get all Post data
 export const fetchPosts = async (req, res) => {
   const posts = await prisma.post.findMany();
 
@@ -9,7 +9,7 @@ export const fetchPosts = async (req, res) => {
   });
 };
 
-//* Fetch particular User according conditions
+//* Fetch particular Post according conditions
 
 export const showPost = async (req, res) => {
   const postId = req.params.id;
@@ -42,7 +42,7 @@ export const createPost = async (req, res) => {
   });
 };
 
-//* Update the User
+//* Update the Post
 
 export const updatePost = async (req, res) => {
   const postId = req.params.id;
@@ -64,7 +64,7 @@ export const updatePost = async (req, res) => {
   });
 };
 
-//* Delete The User
+//* Delete The Post
 
 export const deletePost = async (req, res) => {
   const postId = req.params.id;
