@@ -21,10 +21,52 @@ model User {
   email      String   @unique // ensure email always unique
   password   String? // Optional because sometimes we use OAuth or other Authentication system in feature
   created_at DateTime @default(now()) // Set date-time and default value is current date-time
+
+  //! Ek user multiple post create kar skta hai issliye relationship is One to Manu.
+  Post    Post[]
+  Comment Comment[]
 }
 
+//* Creating new Model post
+
+model Post {
+  id            Int      @id @default(autoincrement())
+  //! BUT Ek post ko sirf ek hi user create kar skta hai issliye humne yahan par User declare kara hai naa ki User[] (array of user)
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  // onDelete: Cascade
+    //? whenever user account delete or say user delete then it's all post will be deleted
+
+  user_id       Int
+  title         String
+  description   String
+  comment_count BigInt   @default(0)
+  created_at    DateTime @default(now())
+
+  Comment Comment[]
+}
+
+//* Creating new Model comment
+
+model Comment {
+  id         String   @id @default(uuid())
+
+  //? kahi post kari ho wo delet ho gyi toh usski comment bhi delete kar do (onDelete: Cascade)
+  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id    Int
+
+  //? kahi user delet ho gya ho toh usski comment bhi delete kar do (onDelete: Cascade)
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id    Int
+  comment    String
+  created_at DateTime @default(now())
+}
 
 //* To connect this above model to our database use below command:-
 
 //! Command:- 
 // npx prisma migrate dev --name create_user_schema
+
+//! NOTE:-
+// If you want performance based either sorting or fetching you can use 'Id'
+
+// But if you want security then you can use 'uuid' because it cannot be easily guess it's 32 bit type string
