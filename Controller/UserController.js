@@ -1,5 +1,14 @@
 import prisma from "../DB/db.config.js";
 
+//* To get all User data
+export const fetchUsers = async (req, res) => {
+  const users = await prisma.user.findMany();
+
+  return res.status(200).json({
+    data: users,
+  });
+};
+
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -36,17 +45,17 @@ export const updateUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   await prisma.user.update({
-    where:{
-        //* The id will get from the user is in string form we have need to convert it into Number
-        id: Number(userId)
+    where: {
+      //* The id will get from the user is in string form we have need to convert it into Number
+      id: Number(userId),
     },
-    data:{
-        name,
-        email,
-        password
-    }
-  })
+    data: {
+      name,
+      email,
+      password,
+    },
+  });
   return res.status(200).json({
-    message: "User Updated Successfully"
-  })
+    message: "User Updated Successfully",
+  });
 };
