@@ -27,8 +27,13 @@ export const fetchPosts = async (req, res) => {
       id: "desc",
     },
     where: {
-      comment_count: {
-        gt: 0,
+      // comment_count: {
+      //   gt: 0,
+      // },
+      title: {
+        // startsWith: "Next",
+        // endsWith: "Tutorial",
+        equals: "Prisma Blog",
       },
     },
   });
