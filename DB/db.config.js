@@ -1,9 +1,13 @@
 // To hit any query or create any query we use this @prisma/client
+
+//* This class is the main entry point for interacting with your database using Prisma.
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({
-  //* to see what the query hit we use something "log"
+  //* It enables logging of SQL queries for debugging or performance monitoring.
+
   log: ["query"],
 });
 
+//* It enables logging of SQL queries for debugging or performance monitoring.
 export default prisma;
