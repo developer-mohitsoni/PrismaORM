@@ -153,3 +153,20 @@ export const deletePost = async (req, res) => {
     message: "Post Deleted Successfully",
   });
 };
+
+//* To search the post
+
+export const searchPost = async (req, res) => {
+  const query = req.query.q;
+  const posts = await prisma.post.findMany({
+    where: {
+      description: {
+        search: query,
+      },
+    },
+  });
+
+  return res.status(200).json({
+    data: posts,
+  });
+};
