@@ -3,11 +3,13 @@ import {
   createUser,
   updateUser,
   fetchUsers,
+  showUser,
 } from "../Controller/UserController.js";
 
 const router = Router();
 
-router.get("/", fetchUsers)
+router.get("/", fetchUsers);
+router.get("/", showUser);
 router.post("/", createUser);
 router.put("/:id", updateUser);
 
