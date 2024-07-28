@@ -2,13 +2,13 @@ import prisma from "../DB/db.config.js";
 
 //* To get all User data
 
-export const onlyFetchUser = async(req,res)=>{
+export const onlyFetchUser = async (req, res) => {
   const users = await prisma.user.findMany();
 
   return res.status(200).json({
     data: users,
   });
-}
+};
 
 export const fetchUsers = async (req, res) => {
   //* Now this below include shows userData along with Post
@@ -23,7 +23,7 @@ export const fetchUsers = async (req, res) => {
       },
     },
     */
-   
+
     //* To check the number of post,comment count by user
     select: {
       _count: {
