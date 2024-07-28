@@ -2,7 +2,11 @@ import prisma from "../DB/db.config.js";
 
 //* To get all Post data
 export const fetchPosts = async (req, res) => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    include: {
+      Comment: true,
+    },
+  });
 
   return res.status(200).json({
     data: posts,
@@ -54,7 +58,7 @@ export const updatePost = async (req, res) => {
       id: Number(postId),
     },
     data: {
-        user_id: Number(user_id),
+      user_id: Number(user_id),
       title,
       description,
     },
