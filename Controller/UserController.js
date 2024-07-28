@@ -9,6 +9,22 @@ export const fetchUsers = async (req, res) => {
   });
 };
 
+//* Fetch particular User according conditions
+
+export const showUser = async (req, res) => {
+  const userId = req.params.id;
+
+  const user = await prisma.user.findFirst({
+    where: {
+      id: Number(userId),
+    },
+  });
+
+  return res.status(200).json({
+    data: user,
+  });
+};
+
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
