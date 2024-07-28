@@ -5,10 +5,12 @@ import {
   fetchPosts,
   showPost,
   updatePost,
+  onlyShowPosts,
 } from "../Controller/PostController.js";
 
 const router = Router();
 
+router.get("/onlyPost", onlyShowPosts);
 router.get("/", fetchPosts);
 router.get("/:id", showPost);
 router.post("/", createPost);
