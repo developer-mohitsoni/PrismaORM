@@ -1,6 +1,15 @@
 import prisma from "../DB/db.config.js";
 
 //* To get all Comment data
+export const onlyShowComment = async (req, res) => {
+  const comments = await prisma.comment.findMany();
+
+  return res.status(200).json({
+    data: comments,
+  });
+};
+
+//* To get all Comment data
 export const fetchComment = async (req, res) => {
   const comments = await prisma.comment.findMany({
     include: {
