@@ -2,7 +2,13 @@ import prisma from "../DB/db.config.js";
 
 //* To get all User data
 export const fetchUsers = async (req, res) => {
-  const users = await prisma.user.findMany();
+
+  //* Now this below include shows userData along with Post
+  const users = await prisma.user.findMany({
+    include: {
+      Post: true
+    },
+  });
 
   return res.status(200).json({
     data: users,
