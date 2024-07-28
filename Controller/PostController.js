@@ -6,7 +6,11 @@ export const fetchPosts = async (req, res) => {
     include: {
       Comment: {
         include: {
-          user: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },
