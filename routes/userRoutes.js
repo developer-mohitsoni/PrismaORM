@@ -1,9 +1,13 @@
 import { Router } from "express";
-import { createUser } from "../Controller/UserController.js";
-import { updateUser } from "../Controller/UserController.js";
+import {
+  createUser,
+  updateUser,
+  fetchUsers,
+} from "../Controller/UserController.js";
 
 const router = Router();
 
+router.get("/", fetchUsers)
 router.post("/", createUser);
 router.put("/:id", updateUser);
 
