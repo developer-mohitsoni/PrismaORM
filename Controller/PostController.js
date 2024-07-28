@@ -18,6 +18,11 @@ export const fetchPosts = async (req, res) => {
       // id: "asc",
       id: "desc",
     },
+    where: {
+      comment_count: {
+        gt: 0,
+      },
+    },
   });
 
   return res.status(200).json({
