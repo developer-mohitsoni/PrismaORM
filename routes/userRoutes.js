@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.get("/", fetchUsers);
-router.get("/", showUser);
+router.get("/:id", showUser);
 router.post("/", createUser);
 router.put("/:id", updateUser);
 
