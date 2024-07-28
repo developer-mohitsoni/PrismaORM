@@ -4,6 +4,7 @@ import prisma from "../DB/db.config.js";
 export const fetchComment = async (req, res) => {
   const comments = await prisma.comment.findMany({
     include: {
+      user: true,
       post: {
         include: {
           user: true,
