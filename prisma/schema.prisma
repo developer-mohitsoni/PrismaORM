@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -30,16 +31,16 @@ model User {
 //* Creating new Model post
 
 model Post {
-  id            Int      @id @default(autoincrement())
+  id   Int  @id @default(autoincrement())
   //! BUT Ek post ko sirf ek hi user create kar skta hai issliye humne yahan par User declare kara hai naa ki User[] (array of user)
-  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   // onDelete: Cascade
-    //? whenever user account delete or say user delete then it's all post will be deleted
+  //? whenever user account delete or say user delete then it's all post will be deleted
 
   user_id       Int
   title         String
   description   String
-  comment_count Int   @default(0)
+  comment_count Int      @default(0)
   created_at    DateTime @default(now())
 
   Comment Comment[]
@@ -48,11 +49,11 @@ model Post {
 //* Creating new Model comment
 
 model Comment {
-  id         String   @id @default(uuid())
+  id String @id @default(uuid())
 
   //? kahi post kari ho wo delet ho gyi toh usski comment bhi delete kar do (onDelete: Cascade)
-  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  post_id    Int
+  post    Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id Int
 
   //? kahi user delet ho gya ho toh usski comment bhi delete kar do (onDelete: Cascade)
   user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
