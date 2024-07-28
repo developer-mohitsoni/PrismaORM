@@ -9,6 +9,13 @@ generator client {
   previewFeatures = ["fullTextSearch"]
 }
 
+//! After you add 
+// @fullTextSearch directive to your model, you can then use the fullTextSearch
+// directive in your queries.
+
+  //* You need to run command:-
+  //? npx prisma generate
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
