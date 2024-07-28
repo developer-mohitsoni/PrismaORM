@@ -28,3 +28,25 @@ export const createUser = async (req, res) => {
     message: "User Created Successfully.",
   });
 };
+
+//* Update the User
+
+export const updateUser = async (req, res) => {
+  const userId = req.params.id;
+  const { name, email, password } = req.body;
+
+  await prisma.user.update({
+    where:{
+        //* The id will get from the user is in string form we have need to convert it into Number
+        id: Number(userId)
+    },
+    data:{
+        name,
+        email,
+        password
+    }
+  })
+  return res.status(200).json({
+    message: "User Updated Successfully"
+  })
+};
