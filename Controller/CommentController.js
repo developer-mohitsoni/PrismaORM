@@ -2,7 +2,15 @@ import prisma from "../DB/db.config.js";
 
 //* To get all Comment data
 export const fetchComment = async (req, res) => {
-  const comments = await prisma.comment.findMany();
+  const comments = await prisma.comment.findMany({
+    include: {
+      post: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
 
   return res.status(200).json({
     data: comments,
@@ -28,18 +36,18 @@ export const showComment = async (req, res) => {
 export const createComment = async (req, res) => {
   const { user_id, post_id, comment } = req.body;
 
-    //* Increase the comment counter of Post if Comment is created
+  //* Increase the comment counter of Post if Comment is created
 
-    await prisma.post.update({
-        where: {
-            id: Number(post_id)
-        },
-        data: {
-            comment_count: {
-                increment: 1
-            }
-        }
-    })
+  await prisma.post.update({
+    where: {
+      id: Number(post_id),
+    },
+    data: {
+      comment_count: {
+        increment: 1,
+      },
+    },
+  });
 
   const newComment = await prisma.comment.create({
     data: {
