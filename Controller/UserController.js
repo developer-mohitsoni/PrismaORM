@@ -13,15 +13,26 @@ export const onlyFetchUser = async(req,res)=>{
 export const fetchUsers = async (req, res) => {
   //* Now this below include shows userData along with Post
   const users = await prisma.user.findMany({
+    /*
+    include: {
+      Post: {
+        select: {
+          title: true,
+          comment_count: true,
+        },
+      },
+    },
+    */
+   
     //* To check the number of post,comment count by user
-    select:{
+    select: {
       _count: {
         select: {
           Post: true,
-          Comment: true
-        }
-      }
-    }
+          Comment: true,
+        },
+      },
+    },
   });
 
   return res.status(200).json({
