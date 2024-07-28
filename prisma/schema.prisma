@@ -12,3 +12,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+//* Creating Prisma Schema/Model
+
+model User {
+  id         Int      @id @default(autoincrement()) // Autoincrement of id
+  name       String? // Optional name field
+  email      String   @unique // ensure email always unique
+  password   String? // Optional because sometimes we use OAuth or other Authentication system in feature
+  created_at DateTime @default(now()) // Set date-time and default value is current date-time
+}
+
+
+//* To connect this above model to our database use below command:-
+
+//! Command:- 
+// npx prisma migrate dev --name create_user_schema
