@@ -2,7 +2,12 @@ import prisma from "../DB/db.config.js";
 
 //* To get all Post data
 export const onlyShowPosts = async (req, res) => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    cacheStrategy: {
+      swr: 60,
+      ttl: 60,
+    },
+  });
 
   return res.status(200).json({
     data: posts,
